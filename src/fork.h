@@ -9,4 +9,6 @@ class Fork {
 		bool isUsing(){return status;};
 		int getPhilosopherID() {return philosopherID;};
 		void changeStatus () {status = !status;};
+		void setID(int ID){this->ID = ID;};
+		void setPhilosopherID(int philosopherID){this->philosopherID = philosopherID;};
 };
