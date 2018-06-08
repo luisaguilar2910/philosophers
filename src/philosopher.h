@@ -15,7 +15,13 @@ class Philosopher {
 		int changeStatus(State state);
 		int execute();
 		int ID;
+		Fork* getRight() {return right;};
+		Fork* getLeft() {return left;};
+		void setRight(Fork* right){this->right = right;};
+		void setLeft(Fork* left){this->left = left;};
 	private:
 		State state;
 		int getRandomTime();
+		Fork* right;
+		Fork* left;
 };

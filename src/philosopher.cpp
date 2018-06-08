@@ -14,15 +14,18 @@ int Philosopher::execute(){
 	switch (this->state) {
 		case Eating:
 			cout<<"Eating..."<<endl;
+			sleep(getRandomTime());
 		break;
 		case Thinking:
 			cout<<"Thinking..."<<endl;
+			sleep(getRandomTime());
 		break;
 		case Hungry:
 			cout<<"Hungry..."<<endl;
+			//look for unused fork
+			//wait for unused fork
 		break;
 	}
-	sleep(getRandomTime());
 };
 
 int Philosopher::getRandomTime(){

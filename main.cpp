@@ -9,10 +9,12 @@
 using namespace std;
 
 void run(Philosopher* p){
+	while(1){
 		p->execute();
+	}
 }
 
-int main(){
+int main() {
 	Fork* forks = new Fork[5];
 	Philosopher* philosophers = new Philosopher[5];
 	vector<thread*> threads;
