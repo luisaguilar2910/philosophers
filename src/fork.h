@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 #ifndef FORK_LIB
 #define FORK_LIB
 class Fork {
@@ -14,5 +17,6 @@ class Fork {
 		void changeStatus () {status = !status;};
 		void setID(int ID){this->ID = ID;};
 		void setPhilosopherID(int philosopherID){this->philosopherID = philosopherID;};
+		void printData();
 };
 #endif

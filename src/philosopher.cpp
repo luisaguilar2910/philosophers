@@ -1,6 +1,7 @@
 #include "philosopher.h"
 #include <cstdlib>
 #include <unistd.h>
+#include <mutex>
 
 Philosopher::Philosopher(){
 	state = Thinking;
@@ -24,17 +25,18 @@ void Philosopher::printData(){
 	}
 }
 
-int Philosopher::execute(){
+int Philosopher::execute(mutex* m){
 	switch (this->state) {
 		case Eating:
 			//cout<<"P"<<this->ID<<": "<<"Eating..."<<endl;
 			sleep(getRandomTime());
-
-			this->right->setPhilosopherID(-1);
-			this->right->changeStatus();
-			this->left->setPhilosopherID(-1);
-			this->left->changeStatus();
-
+			{
+				lock_guard<mutex> lock(*m);
+				this->right->setPhilosopherID(-1);
+				this->right->changeStatus();
+				this->left->setPhilosopherID(-1);
+				this->left->changeStatus();
+			}
 			this->state = Thinking;
 		break;
 		case Thinking:
@@ -43,12 +45,16 @@ int Philosopher::execute(){
 			this->state = Hungry;
 		break;
 		case Hungry:
-			if(!this->right->isUsing() && !this->left->isUsing()){
-				this->right->setPhilosopherID(this->ID);
-				this->right->changeStatus();
-				this->left->setPhilosopherID(this->ID);
-				this->left->changeStatus();
-				this->state = Eating;
+			{
+				lock_guard<mutex> lock(*m);
+				if(!this->right->isUsing() && !this->left->isUsing()){
+					cout<<"Taking: "<<this->right->getPhilosopherID()<<" and "<<this->left->getPhilosopherID()<<endl;
+					this->right->setPhilosopherID(this->ID);
+					this->right->changeStatus();
+					this->left->setPhilosopherID(this->ID);
+					this->left->changeStatus();
+					this->state = Eating;
+				}
 			}
 		break;
 	}

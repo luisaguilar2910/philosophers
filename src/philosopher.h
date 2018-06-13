@@ -1,6 +1,8 @@
 #include<iostream>
+#include <mutex>
 #include "fork.h"
 using namespace std;
+
 #ifndef PHILOSOPHER_LIB
 #define PHILOSOPHER_LIB
 class Philosopher {
@@ -14,9 +16,9 @@ class Philosopher {
 		int startEating();
 		void printData();
 		void run();
-		const unsigned int maxTime = 30;
+		const unsigned int maxTime = 10;
 		int changeStatus(State state);
-		int execute();
+		int execute(mutex* m);
 		int ID;
 		Fork* getRight() {return right;};
 		Fork* getLeft() {return left;};

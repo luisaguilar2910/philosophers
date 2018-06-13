@@ -11,3 +11,7 @@ Fork::Fork(){
 	this->philosopherID = -1;
 	this->status = false;
 }
+
+void Fork::printData(){
+	cout<<this->ID<<": "<<this->philosopherID<<", "<<this->status<<endl;
+}
