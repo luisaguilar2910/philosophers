@@ -1,6 +1,8 @@
 #include<iostream>
+#include "fork.h"
 using namespace std;
-
+#ifndef PHILOSOPHER_LIB
+#define PHILOSOPHER_LIB
 class Philosopher {
 	public:
 		enum State { Hungry, Eating, Thinking };
@@ -10,8 +12,9 @@ class Philosopher {
 		int startThinking();
 		int startHungry();
 		int startEating();
+		void printData();
 		void run();
-		const unsigned int maxTime = 5;
+		const unsigned int maxTime = 30;
 		int changeStatus(State state);
 		int execute();
 		int ID;
@@ -25,3 +28,4 @@ class Philosopher {
 		Fork* right;
 		Fork* left;
 };
+#endif

@@ -9,21 +9,47 @@ Philosopher::Philosopher(){
 void Philosopher::run() {
 }
 
+void Philosopher::printData(){
+	cout<<"ID: "<<this->ID<<" Status: [";
+	switch (this->state) {
+		case Thinking:
+			cout<<"Thinking]"<<endl;
+			break;
+		case Eating:
+			cout<<"Eating]"<<endl;
+			break;
+		case Hungry:
+			cout<<"Hungry]"<<endl;
+			break;
+	}
+}
+
 int Philosopher::execute(){
-	cout<<"P"<<this->ID<<": ";
 	switch (this->state) {
 		case Eating:
-			cout<<"Eating..."<<endl;
+			//cout<<"P"<<this->ID<<": "<<"Eating..."<<endl;
 			sleep(getRandomTime());
+
+			this->right->setPhilosopherID(-1);
+			this->right->changeStatus();
+			this->left->setPhilosopherID(-1);
+			this->left->changeStatus();
+
+			this->state = Thinking;
 		break;
 		case Thinking:
-			cout<<"Thinking..."<<endl;
+			//cout<<"P"<<this->ID<<": "<<"Thinking..."<<endl;
 			sleep(getRandomTime());
+			this->state = Hungry;
 		break;
 		case Hungry:
-			cout<<"Hungry..."<<endl;
-			//look for unused fork
-			//wait for unused fork
+			if(!this->right->isUsing() && !this->left->isUsing()){
+				this->right->setPhilosopherID(this->ID);
+				this->right->changeStatus();
+				this->left->setPhilosopherID(this->ID);
+				this->left->changeStatus();
+				this->state = Eating;
+			}
 		break;
 	}
 };

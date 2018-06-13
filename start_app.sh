@@ -4,5 +4,6 @@ mkdir bin
 cd bin/
 cmake ..
 make
+cd bin
 ./app
-cd ..
+cd ../..
